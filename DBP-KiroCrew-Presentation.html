@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiro Crew Training for DBP | Sagesoft Solutions Inc.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --deep-blue: #0F74BC; --blue: #2082C4; --mid-blue: #2487C7;
+            --sky-blue: #44AEDE; --light-blue: #8fd0ef; --pale-blue: #e8f4fb;
+            --white: #ffffff; --off-white: #f7fbfe; --gray: #5a7184;
+            --dark-text: #12384f; --red: #e53935; --green: #2e9e5b; --amber: #f5a623;
+            --grad-blue: linear-gradient(135deg, #0F74BC 0%, #44AEDE 100%);
+        }
+        body.dark {
+            --white: #0f1b26; --off-white: #16283a; --pale-blue: #1c3247;
+            --gray: #a9bccd; --dark-text: #eaf3fb; --deep-blue: #5bb8ef;
+            --blue: #6cc3f2; --sky-blue: #44AEDE;
+        }
+        body.dark .card { box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+        body.dark .compare-onprem { background: rgba(229,57,53,0.10); }
+        body.dark .compare-cloud { background: rgba(68,174,222,0.10); }
+        body.dark .quote { background: rgba(68,174,222,0.10); }
+        body.dark .analogy { background: rgba(245,166,35,0.12); color: #f5c56a; }
+        body.dark .analogy strong { color: #ffd98a; }
+        body.dark .badge { color: var(--dark-text); }
+        body.dark .nav-btn { background: #16283a; }
+        body.dark .nav-btn:hover { background: var(--deep-blue); color: #0f1b26; }
+        body.dark .logo img { filter: brightness(0) invert(1); }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins','Segoe UI',sans-serif; background: var(--white); color: var(--dark-text); overflow: hidden; height: 100vh; width: 100vw; }
+        .slide { display: none; width: 100vw; height: 100vh; padding: 60px 90px; position: absolute; top: 0; left: 0; background: var(--white); animation: fadeIn 0.4s ease-in-out; }
+        .slide.active { display: flex; flex-direction: column; justify-content: center; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+        .accent-corner { position: absolute; top: 0; right: 0; width: 280px; height: 280px; background: var(--grad-blue); clip-path: polygon(100% 0, 0 0, 100% 100%); opacity: 0.9; pointer-events: none; }
+        .accent-bottom { position: absolute; bottom: 0; left: 0; width: 220px; height: 220px; background: var(--grad-blue); clip-path: polygon(0 100%, 0 0, 100% 100%); opacity: 0.12; pointer-events: none; }
+        .logo { position: absolute; top: 30px; left: 60px; z-index: 10; }
+        .logo img { height: 46px; width: auto; display: block; transition: filter 0.3s ease; }
+        h1 { font-size: 3.6rem; font-weight: 800; color: var(--deep-blue); line-height: 1.12; margin-bottom: 20px; }
+        h2 { font-size: 2.6rem; font-weight: 800; color: var(--deep-blue); margin-bottom: 14px; line-height: 1.15; position: relative; z-index: 2; }
+        h3 { font-size: 1.4rem; font-weight: 700; color: var(--blue); margin-bottom: 10px; }
+        p { font-size: 1.35rem; line-height: 1.7; color: var(--gray); }
+        .subtitle { font-size: 1.4rem; color: var(--sky-blue); font-weight: 600; margin-bottom: 8px; }
+        .slide-sub { font-size: 1.2rem; color: var(--gray); margin-bottom: 32px; font-weight: 400; z-index: 2; position: relative; }
+        .title-wrap { text-align: center; max-width: 950px; margin: 0 auto; z-index: 2; }
+        .title-wrap h1 { font-size: 4rem; background: var(--grad-blue); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .badge { display: inline-block; margin-top: 34px; padding: 10px 30px; border: 2px solid var(--sky-blue); border-radius: 30px; color: var(--deep-blue); font-size: 0.95rem; font-weight: 600; letter-spacing: 1px; }
+        .speaker-line { margin-top: 26px; }
+        .speaker-line .name { font-size: 1.15rem; color: var(--deep-blue); font-weight: 700; }
+        .speaker-line .role { font-size: 0.95rem; color: var(--gray); margin-top: 4px; }
+        .big-list { list-style: none; margin: 20px 0; z-index: 2; position: relative; }
+        .big-list li { font-size: 1.5rem; padding: 16px 0 16px 46px; position: relative; color: var(--dark-text); border-bottom: 1px solid var(--pale-blue); }
+        .big-list li::before { content: "→"; position: absolute; left: 0; color: var(--sky-blue); font-weight: 700; }
+        .cards { display: grid; gap: 24px; margin-top: 26px; z-index: 2; position: relative; }
+        .cards.c2 { grid-template-columns: 1fr 1fr; }
+        .cards.c3 { grid-template-columns: 1fr 1fr 1fr; }
+        .cards.c4 { grid-template-columns: repeat(4, 1fr); }
+        .card { padding: 28px 26px; background: var(--off-white); border: 1px solid var(--pale-blue); border-radius: 16px; box-shadow: 0 4px 20px rgba(15,116,188,0.06); }
+        .card .icon { font-size: 2.4rem; margin-bottom: 12px; }
+        .card h3 { font-size: 1.25rem; }
+        .card p { font-size: 1.05rem; }
+        .card.blue { background: var(--grad-blue); }
+        .card.blue h3, .card.blue p { color: var(--white); }
+        .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 34px; margin-top: 24px; z-index: 2; position: relative; }
+        .compare-box { padding: 32px; border-radius: 18px; border: 2px solid; }
+        .compare-onprem { border-color: rgba(229,57,53,0.4); background: rgba(229,57,53,0.03); }
+        .compare-cloud { border-color: var(--sky-blue); background: var(--pale-blue); }
+        .compare-onprem h3 { color: var(--red); font-size: 1.6rem; }
+        .compare-cloud h3 { color: var(--deep-blue); font-size: 1.6rem; }
+        .compare ul { list-style: none; padding: 0; margin-top: 16px; }
+        .compare ul li { padding: 10px 0 10px 30px; font-size: 1.15rem; color: var(--dark-text); position: relative; }
+        .compare-onprem ul li::before { content: "✗"; position: absolute; left: 0; color: var(--red); font-weight: 700; }
+        .compare-cloud ul li::before { content: "✓"; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+        .metrics { display: flex; justify-content: space-around; background: var(--grad-blue); border-radius: 20px; padding: 28px 40px; margin-top: 30px; z-index: 2; position: relative; }
+        .metric { text-align: center; }
+        .metric .val { font-size: 2.6rem; font-weight: 800; color: var(--white); }
+        .metric .lbl { font-size: 0.9rem; color: rgba(255,255,255,0.85); margin-top: 4px; }
+        .quote { margin-top: 30px; padding: 24px 34px; background: var(--pale-blue); border-left: 5px solid var(--sky-blue); border-radius: 0 14px 14px 0; font-size: 1.3rem; font-style: italic; color: var(--deep-blue); z-index: 2; position: relative; }
+        .analogy { margin-top: 24px; padding: 22px 30px; background: rgba(245,166,35,0.08); border: 1px dashed var(--amber); border-radius: 14px; font-size: 1.2rem; color: #9c6a15; z-index: 2; position: relative; }
+        .analogy strong { color: #7a5210; }
+        .cta-btn { display: inline-block; margin-top: 36px; padding: 18px 46px; background: var(--grad-blue); color: var(--white); text-decoration: none; font-size: 1.3rem; font-weight: 700; border-radius: 10px; box-shadow: 0 8px 24px rgba(15,116,188,0.3); }
+        .cta-url { margin-top: 14px; font-size: 1rem; color: var(--gray); }
+        .takeaways { list-style: none; margin: 28px auto; max-width: 820px; text-align: left; z-index: 2; position: relative; }
+        .takeaways li { font-size: 1.35rem; padding: 16px 0 16px 54px; position: relative; color: var(--dark-text); }
+        .takeaways li::before { content: attr(data-n); position: absolute; left: 0; width: 38px; height: 38px; line-height: 38px; text-align: center; background: var(--grad-blue); color: #fff; border-radius: 50%; font-weight: 800; font-size: 1rem; }
+        .agenda-table { width: 100%; margin-top: 20px; z-index: 2; position: relative; border-collapse: collapse; }
+        .agenda-table th, .agenda-table td { text-align: left; padding: 14px 18px; font-size: 1.15rem; border-bottom: 1px solid var(--pale-blue); color: var(--dark-text); }
+        .agenda-table th { color: var(--deep-blue); font-weight: 700; }
+        .nav-controls { position: fixed; bottom: 30px; right: 40px; display: flex; gap: 10px; z-index: 100; }
+        .nav-btn { width: 46px; height: 46px; border: 2px solid var(--deep-blue); background: var(--white); color: var(--deep-blue); border-radius: 50%; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; transition: all 0.2s; font-weight: 700; }
+        .nav-btn:hover { background: var(--deep-blue); color: var(--white); }
+        .slide-counter { position: fixed; bottom: 36px; left: 40px; font-size: 0.9rem; color: var(--gray); z-index: 100; font-weight: 500; }
+        .progress-bar { position: fixed; top: 0; left: 0; height: 4px; background: var(--grad-blue); transition: width 0.4s ease; z-index: 100; }
+        @media (max-width: 1024px) {
+            .slide { padding: 40px 50px; } h1 { font-size: 2.4rem; } h2 { font-size: 1.9rem; }
+            .title-wrap h1 { font-size: 2.6rem; }
+            .cards.c2, .cards.c3, .cards.c4, .compare { grid-template-columns: 1fr; }
+            .metrics { flex-wrap: wrap; gap: 20px; }
+        }
+    </style>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- SLIDE 1: TITLE -->
+<div class="slide active">
+    <div class="accent-corner"></div>
+    <div class="accent-bottom"></div>
+    <div class="logo"><img src="sagesoft-logo.svg" alt="Sagesoft Solutions"></div>
+    <div class="title-wrap">
+        <p class="subtitle">Knowledge Transfer Session</p>
+        <h1>Kiro Crew for DBP</h1>
+        <p style="font-size:1.5rem; color:var(--gray);">Tokens, how it works, and building your own agents</p>
+        <div class="speaker-line">
+            <div class="name">Jim Bermudez</div>
+            <div class="role">Solutions Architect, Team Lead — Service Delivery — Sagesoft Solutions Inc.</div>
+        </div>
+        <div class="badge">SAGESOFT SOLUTIONS INC. &nbsp;|&nbsp; AWS PARTNER</div>
+    </div>
+</div>
+
+<!-- SLIDE 2: AGENDA -->
+<div class="slide">
+    <div class="accent-corner"></div>
+    <div class="logo"><img src="sagesoft-logo.svg" alt="Sagesoft Solutions"></div>
+    <h2>Today's Agenda</h2>
+    <p class="slide-sub">2 hours total — discussion first, then everyone's hands-on</p>
+    <table class="agenda-table">
+        <tr><th>Time</th><th>Segment</th></tr>
+        <tr><td>0:00 – 0:20</td><td>Discussion — what Kiro Crew is, the frame we'll use all session</td></tr>
+        <tr><td>0:20 – 0:45</td><td>Hands-On — Account &amp; Token Management</td></tr>
+        <tr><td>0:45 – 1:25</td><td>Hands-On — Kiro Crew: How It Works + Live Demo</td></tr>
+        <tr><td>1:25 – 2:00</td><td>Hands-On — Agent Creation</td></tr>
+    </table>
+</div>
+
+<!-- SLIDE 3: THE FRAME -->
+<div class="slide">
+    <div class="accent-corner"></div>
+    <div class="logo"><img src="sagesoft-logo.svg" alt="Sagesoft Solutions"></div>
+    <h2>Treat It Like a New Hire</h2>
+    <p class="slide-sub">The one frame we'll use for the whole session</p>
+    <ul class="big-list">
+        <li>Job description — what it's there to do (the prompt)</li>
+        <li>Toolbox — what systems it's allowed to touch</li>
+        <li>Boundaries — what needs permission, what's never allowed</li>
+    </ul>
+    <div class="analogy"><strong>Analogy:</strong> vague onboarding leaves a new hire guessing. Vague instructions get vague results from an agent too.</div>
+</div>
+
+<!-- SLIDE 4: WHAT IS KIRO CREW -->
+<div class="slide">
+    <div class="accent-corner"></div>
+    <div class="logo"><img src="sagesoft-logo.svg" alt="Sagesoft Solutions"></div>
+    <h2>What Is Kiro Crew?</h2>
+    <p class="slide-sub">One always-on process behind every surface you use</p>
+    <div class="cards c4">
+        <div class="card"><div class="icon">🖥️</div><h3>Dashboard</h3><p>Web UI, memory explorer, cron manager</p></div>
+        <div class="card"><div class="icon">⌨️</div><h3>CLI</h3><p>Scriptable, pipe-friendly, CI/CD ready</p></div>
+        <div class="card"><div class="icon">💻</div><h3>Desktop App</h3><p>No install dependencies needed</p></div>
+        <div class="card"><div class="icon">💬</div><h3>Slack / Discord / Teams</h3><p>Same crew, same memory, different window</p></div>
+    </div>
+    <div class="quote">"Closing the dashboard tab does not stop anything — the Gateway keeps running."</div>
+</div>
+
+<!-- SLIDE 5: WHAT IT ACTUALLY DOES -->
+<div class="slide">
+    <div class="accent-corner"></div>
+    <div class="logo"><img src="sagesoft-logo.svg" alt="Sagesoft Solutions"></div>
+    <h2>Works While You're Away</h2>
+    <p class="slide-sub">Three mechanisms that keep running unattended</p>
+    <div class="cards c3">
+        <div class="card blue"><div class="icon">⏰</div><h3>Scheduling</h3><p>Timezone-aware cron jobs, recurring or one-shot</p></div>
+        <div class="card blue"><div class="icon">📋</div><h3>Task Runner</h3><p>Hand it a spec; it plans, executes, checkpoints, retries</p></div>
+        <div class="card blue"><div class="icon">🔗</div><h3>Webhooks / Heartbeat</h3><p>External events wake a session automatically</p></div>
+    </div>
+</div>
+
+<!-- SLIDE 6: THE FALSE ASSUMPTION -->
+<div class="slide">
+    <div class="accent-corner"></div>
+    <div class="logo"><img src="sagesoft-logo.svg" alt="Sagesoft Solutions"></div>
+    <h2>The #1 False Assumption</h2>
+    <p class="slide-sub">Flag this early — it's the most common misunderstanding in this room</p>
+    <div class="compare">
+        <div class="compare-box compare-onprem">
+            <h3>What people assume</h3>
+            <ul>
+                <li>It already knows our AWS account</li>
+                <li>It can check our systems automatically</li>
+                <li>Capability is automatic</li>
+            </ul>
+        </div>
+        <div class="compare-box compare-cloud">
+            <h3>What's actually true</h3>
+            <ul>
+                <li>Only works if a tool/credential is wired in</li>
+                <li>No tool wired in = generic, non-specific answer</li>
+                <li>Capability is explicit, scoped, least-privilege</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 7: SECURITY LAYERS -->
+<div class="slide">
+    <div class="accent-corner"></div>
+    <div class="logo"><img src="sagesoft-logo.svg" alt="Sagesoft Solutions"></div>
+    <h2>8 Layers of Defense</h2>
+    <p class="slide-sub">Every action is logged — nothing is just trusted silently</p>
+    <div class="metrics">
+        <div class="metric"><div class="val">8</div><div class="lbl">Security Layers</div></div>
+        <div class="metric"><div class="val">100%</div><div class="lbl">Actions Audit-Logged</div></div>
+        <div class="metric"><div class="val">Off</div><div class="lbl">Browser/Desktop Control, by default</div></div>
+    </div>
+    <div class="analogy"><strong>Note:</strong> Browser and Computer Use control need DBP security sign-off before any demo.</div>
+</div>
+
+<!-- SLIDE 8: AGENT CREATION -->
+<div class="slide">
+    <div class="accent-corner"></div>
+    <div class="logo"><img src="sagesoft-logo.svg" alt="Sagesoft Solutions"></div>
+    <h2>Agent Creation</h2>
+    <p class="slide-sub">A crew member is config, not a new brain</p>
+    <ul class="big-list">
+        <li>Name + workspace + memory + model</li>
+        <li>Trigger words — tell the conductor when to route to it</li>
+        <li>A deny rule always wins, no matter what else is set</li>
+    </ul>
+</div>
+
+<!-- SLIDE 9: TAKEAWAYS + CTA -->
+<div class="slide">
+    <div class="accent-corner"></div>
+    <div class="accent-bottom"></div>
+    <div class="logo"><img src="sagesoft-logo.svg" alt="Sagesoft Solutions"></div>
+    <div style="text-align:center; z-index:2; position:relative;">
+        <h2 style="text-align:center;">Key Takeaways</h2>
+        <ul class="takeaways">
+            <li data-n="1">One account funds every request on a shared gateway — plan accordingly</li>
+            <li data-n="2">Crew works unattended, but only has the capability you explicitly wire in</li>
+            <li data-n="3">An agent is a job description + toolbox + boundaries, same as onboarding a hire</li>
+        </ul>
+        <p style="margin-top:20px; font-size:1.2rem;">Now it's your turn — open the dashboard and follow the Participant Workbook.</p>
+    </div>
+</div>
+
+<div class="slide-counter"><span id="currentSlide">1</span> / <span id="totalSlides">9</span></div>
+<div class="nav-controls">
+    <button class="nav-btn" onclick="toggleFullscreen()" id="fsBtn" title="Toggle Fullscreen">⛶</button>
+    <button class="nav-btn" onclick="toggleDark()" id="darkBtn" title="Toggle Dark Mode">🌙</button>
+    <button class="nav-btn" onclick="prevSlide()">←</button>
+    <button class="nav-btn" onclick="nextSlide()">→</button>
+</div>
+
+<script>
+    let current = 0;
+    const slides = document.querySelectorAll('.slide');
+    const total = slides.length;
+    function toggleFullscreen() {
+        if (!document.fullscreenElement) { document.documentElement.requestFullscreen().catch(() => {}); }
+        else { document.exitFullscreen().catch(() => {}); }
+    }
+    document.addEventListener('fullscreenchange', () => {
+        document.getElementById('fsBtn').textContent = document.fullscreenElement ? '✕' : '⛶';
+    });
+    function toggleDark() {
+        document.body.classList.toggle('dark');
+        const on = document.body.classList.contains('dark');
+        document.getElementById('darkBtn').textContent = on ? '☀️' : '🌙';
+    }
+    function showSlide(index) {
+        slides.forEach(s => s.classList.remove('active'));
+        slides[index].classList.add('active');
+        document.getElementById('currentSlide').textContent = index + 1;
+        document.getElementById('progressBar').style.width = ((index + 1) / total * 100) + '%';
+    }
+    function nextSlide() { current = (current + 1) % total; showSlide(current); }
+    function prevSlide() { current = (current - 1 + total) % total; showSlide(current); }
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'f' || e.key === 'F' || e.key === 'F11') { e.preventDefault(); toggleFullscreen(); return; }
+        if (e.key === 'd' || e.key === 'D') { e.preventDefault(); toggleDark(); return; }
+        if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') { e.preventDefault(); nextSlide(); }
+        else if (e.key === 'ArrowLeft') { e.preventDefault(); prevSlide(); }
+    });
+    let touchStartX = 0;
+    document.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; });
+    document.addEventListener('touchend', (e) => {
+        const diff = touchStartX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 50) { diff > 0 ? nextSlide() : prevSlide(); }
+    });
+    document.getElementById('totalSlides').textContent = total;
+    showSlide(0);
+</script>
+</body>
+</html>
