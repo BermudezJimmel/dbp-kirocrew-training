@@ -4,6 +4,7 @@ Kiro Crew knowledge-transfer session for DBP — Sagesoft Solutions Inc.
 
 ## Start here — Hands-On, one page per module
 
+- 💾 **[Installation Guide](Handson-0-Installation.md)** — do this before the session
 - 🛠 **[Module 1 — Account & Token Management](Handson-1-Account-Token.md)**
 - 🛠 **[Module 2 — How Kiro Crew Works](Handson-2-How-It-Works.md)**
 - 🛠 **[Module 3 — Agent Creation](Handson-3-Agent-Creation.md)**
