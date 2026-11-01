@@ -52,6 +52,8 @@
         .big-list { list-style: none; margin: 20px 0; z-index: 2; position: relative; }
         .big-list li { font-size: 1.5rem; padding: 16px 0 16px 46px; position: relative; color: var(--dark-text); border-bottom: 1px solid var(--pale-blue); }
         .big-list li::before { content: "→"; position: absolute; left: 0; color: var(--sky-blue); font-weight: 700; }
+        .big-list.compact li { padding: 8px 0 8px 36px; font-size: 1.05rem; border-bottom: none; }
+        .slide a { color: var(--deep-blue); font-weight: 600; text-decoration: underline; }
         .cards { display: grid; gap: 24px; margin-top: 26px; z-index: 2; position: relative; }
         .cards.c2 { grid-template-columns: 1fr 1fr; }
         .cards.c3 { grid-template-columns: 1fr 1fr 1fr; }
@@ -114,7 +116,7 @@
         <p style="font-size:1.5rem; color:var(--gray);">Tokens, how it works, and building your own agents</p>
         <div class="speaker-line">
             <div class="name">Jim Bermudez</div>
-            <div class="role">Solutions Architect, Team Lead — Service Delivery — Sagesoft Solutions Inc.</div>
+            <div class="role">Solutions Architect</div>
         </div>
         <div class="badge">SAGESOFT SOLUTIONS INC. &nbsp;|&nbsp; AWS PARTNER</div>
     </div>
@@ -125,14 +127,15 @@
     <div class="accent-corner"></div>
     <div class="logo"><img src="sagesoft-logo.svg" alt="Sagesoft Solutions"></div>
     <h2>Today's Agenda</h2>
-    <p class="slide-sub">2 hours total — discussion first, then everyone's hands-on</p>
+    <p class="slide-sub">Explain, then do — hands-on right after each module</p>
     <table class="agenda-table">
-        <tr><th>Time</th><th>Segment</th></tr>
-        <tr><td>0:00 – 0:20</td><td>Discussion — what Kiro Crew is, the frame we'll use all session</td></tr>
-        <tr><td>0:20 – 0:45</td><td>Hands-On — Account &amp; Token Management</td></tr>
-        <tr><td>0:45 – 1:25</td><td>Hands-On — Kiro Crew: How It Works + Live Demo</td></tr>
-        <tr><td>1:25 – 2:00</td><td>Hands-On — Agent Creation</td></tr>
+        <tr><th>Time</th><th>Module</th></tr>
+        <tr><td>0:00 – 0:10</td><td>Welcome + open the Hands-On Guide (GitHub repo)</td></tr>
+        <tr><td>0:10 – 0:45</td><td>Module 1 — Account &amp; Token Management: explain, then do</td></tr>
+        <tr><td>0:45 – 1:25</td><td>Module 2 — How Kiro Crew Works: explain, live demo, then do</td></tr>
+        <tr><td>1:25 – 2:00</td><td>Module 3 — Agent Creation: explain, then do</td></tr>
     </table>
+    <div class="quote" style="font-size:1.05rem;">🛠 <strong>Hands-On Guide:</strong> <a href="https://github.com/BermudezJimmel/dbp-kirocrew-training" target="_blank">github.com/BermudezJimmel/dbp-kirocrew-training</a> — same idea as an AWS Immersion Day page: open it, follow the steps, come back when done.</div>
 </div>
 
 <!-- SLIDE 3: THE FRAME -->
@@ -149,6 +152,22 @@
     <div class="analogy"><strong>Analogy:</strong> vague onboarding leaves a new hire guessing. Vague instructions get vague results from an agent too.</div>
 </div>
 
+<!-- SLIDE 3B: ACCOUNT & TOKEN MANAGEMENT -->
+<div class="slide">
+    <div class="accent-corner"></div>
+    <div class="logo"><img src="sagesoft-logo.svg" alt="Sagesoft Solutions"></div>
+    <h2>Account &amp; Token Management</h2>
+    <p class="slide-sub">One login, one shared pool — this surprises most new users</p>
+    <ul class="big-list">
+        <li>Log in once with kiro-cli — no separate Crew account or token</li>
+        <li>Chat and scheduled runs both draw from the same Kiro plan</li>
+        <li>Script / command cron jobs skip the model entirely — zero tokens</li>
+    </ul>
+    <div class="quote" style="font-size:1.05rem;">A job spends tokens only when the AI model reads or writes something. "Check disk space with <code>df -h</code>" is a plain shell command — Crew runs it, nothing reaches the model, cost is $0. "Summarize today's tickets" needs the model to read and write — that one spends tokens.</div>
+    <div class="analogy"><strong>Analogy:</strong> like a company gas card. Every driver fills up from the same tank — you track who's driving, not the card.</div>
+    <div class="quote" style="font-size:0.95rem;">🛠 Hands-On: Hands-On Guide → Account &amp; Token Management.</div>
+</div>
+
 <!-- SLIDE 4: WHAT IS KIRO CREW -->
 <div class="slide">
     <div class="accent-corner"></div>
@@ -156,12 +175,14 @@
     <h2>What Is Kiro Crew?</h2>
     <p class="slide-sub">One always-on process behind every surface you use</p>
     <div class="cards c4">
-        <div class="card"><div class="icon">🖥️</div><h3>Dashboard</h3><p>Web UI, memory explorer, cron manager</p></div>
+        <div class="card"><div class="icon">🖥️</div><h3>Web Dashboard</h3><p>This whole web app — what you're using right now</p></div>
         <div class="card"><div class="icon">⌨️</div><h3>CLI</h3><p>Scriptable, pipe-friendly, CI/CD ready</p></div>
-        <div class="card"><div class="icon">💻</div><h3>Desktop App</h3><p>No install dependencies needed</p></div>
+        <div class="card"><div class="icon">💻</div><h3>Desktop App</h3><p>Same gateway, its own window — no browser tab needed</p></div>
         <div class="card"><div class="icon">💬</div><h3>Slack / Discord / Teams</h3><p>Same crew, same memory, different window</p></div>
     </div>
-    <div class="quote">"Closing the dashboard tab does not stop anything — the Gateway keeps running."</div>
+    <div class="quote" style="font-size:0.95rem;">Note: "Dashboard" names this whole web app, not a button inside it. Closing this tab doesn't stop anything — the Gateway keeps running.</div>
+    <div class="analogy"><strong>Analogy:</strong> like one phone number. Call it, text it, video chat — the same person answers every time.</div>
+    <p style="margin-top:12px; font-size:1rem;">Explore: <a href="https://kiro.dev/crew/" target="_blank">kiro.dev/crew</a> · <a href="https://github.com/kirodotdev/KiroCrew" target="_blank">github.com/kirodotdev/KiroCrew</a></p>
 </div>
 
 <!-- SLIDE 5: WHAT IT ACTUALLY DOES -->
@@ -173,8 +194,17 @@
     <div class="cards c3">
         <div class="card blue"><div class="icon">⏰</div><h3>Scheduling</h3><p>Timezone-aware cron jobs, recurring or one-shot</p></div>
         <div class="card blue"><div class="icon">📋</div><h3>Task Runner</h3><p>Hand it a spec; it plans, executes, checkpoints, retries</p></div>
-        <div class="card blue"><div class="icon">🔗</div><h3>Webhooks / Heartbeat</h3><p>External events wake a session automatically</p></div>
+        <div class="card blue"><div class="icon">🔗</div><h3>Webhooks / Heartbeat</h3><p>External events, or its own steady pulse, wake a session</p></div>
     </div>
+    <ul class="big-list compact">
+        <li><strong>Spec</strong> = the steps you write in a plain file, like a recipe card</li>
+        <li><strong>Checkpoint</strong> = saved progress — a resumed run skips finished steps</li>
+        <li><strong>Retry</strong> = a failed step runs again on its own before it gives up</li>
+        <li><strong>Webhook</strong> = an outside system calls IN — Jira, CI, Slack "hooks" into Crew</li>
+        <li><strong>Heartbeat</strong> = Crew wakes ITSELF on a steady pulse, no outside caller needed</li>
+    </ul>
+    <div class="analogy"><strong>Analogy:</strong> like hiring a night-shift guard. The office closes, the work doesn't.</div>
+    <div class="quote" style="font-size:0.95rem;">🛠 Hands-On: Hands-On Guide → How It Works (live demo on the shared screen).</div>
 </div>
 
 <!-- SLIDE 6: THE FALSE ASSUMPTION -->
@@ -201,33 +231,113 @@
             </ul>
         </div>
     </div>
+    <div class="analogy"><strong>Analogy:</strong> like a new contractor with no office key yet. They can't open doors you never gave them access to.</div>
 </div>
 
 <!-- SLIDE 7: SECURITY LAYERS -->
 <div class="slide">
     <div class="accent-corner"></div>
     <div class="logo"><img src="sagesoft-logo.svg" alt="Sagesoft Solutions"></div>
-    <h2>8 Layers of Defense</h2>
-    <p class="slide-sub">Every action is logged — nothing is just trusted silently</p>
-    <div class="metrics">
-        <div class="metric"><div class="val">8</div><div class="lbl">Security Layers</div></div>
-        <div class="metric"><div class="val">100%</div><div class="lbl">Actions Audit-Logged</div></div>
-        <div class="metric"><div class="val">Off</div><div class="lbl">Browser/Desktop Control, by default</div></div>
-    </div>
+    <h2>Defense in Depth</h2>
+    <p class="slide-sub">7 named safeguards, every action audit-logged</p>
+    <ul class="big-list" style="font-size:1.1rem;">
+        <li>OS-level sandbox around the agent process</li>
+        <li>Credential redaction on every AI output</li>
+        <li>Signed, machine-pinned dashboard tokens</li>
+        <li>Blocked commands, logged and explained — not just refused</li>
+        <li>Prompt-injection and credential-leak protection</li>
+        <li>Slack access is owner-only, never open</li>
+        <li>Every third-party app load is trust-gated and audited</li>
+    </ul>
+    <div class="analogy"><strong>Analogy:</strong> like an airport. Many small checkpoints — together they stop almost everything bad.</div>
     <div class="analogy"><strong>Note:</strong> Browser and Computer Use control need DBP security sign-off before any demo.</div>
 </div>
 
-<!-- SLIDE 8: AGENT CREATION -->
+<!-- SLIDE 8: AGENT CREATION — THE PARTS -->
 <div class="slide">
     <div class="accent-corner"></div>
     <div class="logo"><img src="sagesoft-logo.svg" alt="Sagesoft Solutions"></div>
-    <h2>Agent Creation</h2>
-    <p class="slide-sub">A crew member is config, not a new brain</p>
+    <h2>Agent Creation: The Parts</h2>
+    <p class="slide-sub">Config, not a new brain — made in Customize → Mates → New Mate</p>
     <ul class="big-list">
-        <li>Name + workspace + memory + model</li>
-        <li>Trigger words — tell the conductor when to route to it</li>
-        <li>A deny rule always wins, no matter what else is set</li>
+        <li><strong>Name</strong> — how you and Crew both refer to it</li>
+        <li><strong>Workspace</strong> — the folder it is allowed to read and write</li>
+        <li><strong>Memory</strong> — its OWN saved notebook of what it has learned about you and the work. Not server RAM, not shared with other agents unless you point two at the same one</li>
+        <li><strong>Model</strong> — which AI model answers for this agent</li>
     </ul>
+    <div class="analogy"><strong>Analogy:</strong> like writing a job posting. A vague title gets a vague hire — a clear one gets the right agent.</div>
+    <div class="quote" style="font-size:0.95rem;">🛠 Hands-On: Hands-On Guide → Agent Creation, Step 1.</div>
+</div>
+
+<!-- SLIDE 8B: AGENT CREATION — ROUTING & DELEGATION -->
+<div class="slide">
+    <div class="accent-corner"></div>
+    <div class="logo"><img src="sagesoft-logo.svg" alt="Sagesoft Solutions"></div>
+    <h2>Letting Agents Work Together</h2>
+    <p class="slide-sub">One agent can hand work to another — in the background</p>
+    <ul class="big-list">
+        <li><strong>Trigger words</strong> — phrases that tell Crew "route this kind of task to me"</li>
+        <li><strong>Route</strong> — Crew reads the task, checks every agent's trigger words, picks the best match</li>
+        <li>A <strong>"!"</strong> phrase <strong>blocks</strong> that agent — even if it otherwise scored highest</li>
+        <li>One agent can <strong>delegate by name</strong> to another; the work runs in the background and reports back</li>
+    </ul>
+    <div class="quote" style="font-size:1.05rem;">Example: your Solutions Architect agent gets "set up a new client." It delegates account setup to Pre-Sales and the onboarding checklist to PM, keeps the architecture work itself — all three run at once, in the background, then report back to it.</div>
+    <div class="analogy"><strong>Analogy:</strong> like a team lead handing out tickets. Everyone works their part at once, not one after another.</div>
+    <div class="quote" style="font-size:0.95rem;">🛠 Hands-On: Hands-On Guide → Agent Creation, Step 2 (delegation).</div>
+</div>
+
+<!-- SLIDE 8C: REAL USE CASES -->
+<div class="slide">
+    <div class="accent-corner"></div>
+    <div class="logo"><img src="sagesoft-logo.svg" alt="Sagesoft Solutions"></div>
+    <h2>Real Use Cases</h2>
+    <p class="slide-sub">From the Kiro Crew community — not hypothetical</p>
+    <div class="cards c4">
+        <div class="card"><div class="icon">👨‍💻</div><h3>Developers</h3><p><strong>Backlog Crusher</strong> — picks an issue, writes the fix, opens the PR<br><strong>Code Review</strong> — reads a PR diff, posts review comments</p></div>
+        <div class="card"><div class="icon">☁️</div><h3>Cloud / DevOps</h3><p><strong>Oncall Automation</strong> — checks service health every 30 min, pages on red<br><strong>Daily Briefing</strong> — 9am CI/pipeline health summary</p></div>
+        <div class="card"><div class="icon">📊</div><h3>Managers</h3><p><strong>Slack → Issue Pipeline</strong> — turns Slack requests into tracked issues<br><strong>Daily Briefing</strong> — Monday open-PR status, posted to Slack</p></div>
+        <div class="card"><div class="icon">🏛️</div><h3>Leadership</h3><p><strong>Parallel Research</strong> — splits research across sources, merges one summary<br><strong>Multi-Agent Workflows</strong> — several specialist agents on one program</p></div>
+    </div>
+    <div class="quote" style="font-size:0.95rem;">Source: Kiro Crew's own "Use Cases &amp; Workflows" documentation.</div>
+</div>
+
+<!-- SLIDE 8C: KIRO CREW vs CLI vs IDE -->
+<div class="slide">
+    <div class="accent-corner"></div>
+    <div class="logo"><img src="sagesoft-logo.svg" alt="Sagesoft Solutions"></div>
+    <h2>Kiro Crew vs Kiro CLI vs Kiro IDE</h2>
+    <p class="slide-sub">They ask this every time — have the answer ready</p>
+    <table class="agenda-table">
+        <tr><th>Aspect</th><th>Kiro IDE</th><th>Kiro CLI</th><th>Kiro Crew</th></tr>
+        <tr><td>What it is</td><td>AI code editor</td><td>The terminal AI engine — Crew runs on it too</td><td>Always-on platform built on kiro-cli</td></tr>
+        <tr><td>Where it runs</td><td>Inside the IDE, per project</td><td>One terminal session</td><td>Background gateway, 24/7</td></tr>
+        <tr><td>Memory</td><td>Per IDE session</td><td>Per terminal session, local</td><td>Persistent, shared across sessions</td></tr>
+        <tr><td>Scheduling</td><td>None</td><td>None</td><td>Cron, webhooks, heartbeat</td></tr>
+        <tr><td>Multiple agents</td><td>No</td><td>No</td><td>Yes — many crew members</td></tr>
+        <tr><td>Best for</td><td>Writing &amp; editing code</td><td>Scripts, CI, quick terminal tasks</td><td>Automation that runs without you</td></tr>
+    </table>
+    <p style="margin-top:14px; font-size:1.05rem;">Crew doesn't replace the CLI — it wraps it with memory, schedules, and a gateway that never closes.</p>
+    <div class="analogy"><strong>Analogy:</strong> IDE is a workbench. CLI is the engine. Crew bolts that engine into a factory floor that runs around the clock.</div>
+</div>
+
+<!-- SLIDE 8D: WHERE YOUR SESSION LIVES -->
+<div class="slide">
+    <div class="accent-corner"></div>
+    <div class="logo"><img src="sagesoft-logo.svg" alt="Sagesoft Solutions"></div>
+    <h2>Where Your Session Lives</h2>
+    <p class="slide-sub">Same question, three different answers</p>
+    <table class="agenda-table">
+        <tr><th>Tool</th><th>Where it lives</th><th>Survives you closing it?</th></tr>
+        <tr><td>Kiro IDE</td><td>In the project, on your machine</td><td>Yes, if you reopen that project</td></tr>
+        <tr><td>Kiro CLI</td><td>One terminal run</td><td>No — unless you resume it</td></tr>
+        <tr><td>Kiro Crew</td><td>On the always-on gateway</td><td>Yes — keeps running</td></tr>
+    </table>
+    <ul class="big-list" style="margin-top:18px; font-size:1.1rem;">
+        <li>CLI tip: pick up a past run with <code>kiro-cli chat --resume</code></li>
+        <li>Crew tip: closing the dashboard tab never stops the work</li>
+        <li>IDE "Migrate to cloud": check with your Kiro admin before stating what it does on stage</li>
+    </ul>
+    <div class="analogy"><strong>Analogy:</strong> IDE is a desk. CLI is a phone call. Crew is an office that never closes.</div>
 </div>
 
 <!-- SLIDE 9: TAKEAWAYS + CTA -->
@@ -242,7 +352,7 @@
             <li data-n="2">Crew works unattended, but only has the capability you explicitly wire in</li>
             <li data-n="3">An agent is a job description + toolbox + boundaries, same as onboarding a hire</li>
         </ul>
-        <p style="margin-top:20px; font-size:1.2rem;">Now it's your turn — open the dashboard and follow the Participant Workbook.</p>
+        <p style="margin-top:20px; font-size:1.2rem;">Now it's your turn — open the <a href="https://github.com/BermudezJimmel/dbp-kirocrew-training" target="_blank">Hands-On Guide</a> and follow along.</p>
     </div>
 </div>
 
