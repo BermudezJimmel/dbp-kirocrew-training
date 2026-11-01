@@ -4,44 +4,43 @@
 
 ---
 
-## macOS / Linux
+## Step 1: Download
 
-### Step 1: Open Terminal, paste this once
+Open the [Kiro Crew Downloads page](https://github.com/kirodotdev/KiroCrew/releases/latest) and click the file for your OS:
 
-```
-curl -fsSL https://download.crew.kiro.dev/cli.sh | sh
-```
+| Your OS | File to click |
+|---|---|
+| Windows | the file ending in **`Setup-x64.exe`** |
+| Mac — Apple Silicon (M1/M2/M3/M4) | the file ending in **`arm64.dmg`** |
+| Mac — Intel | the file ending in **`x64.dmg`** |
+| Linux | the **`.AppImage`**, **`.deb`**, or **`.rpm`** file |
 
-This downloads the real installer for your machine and runs it. It also installs `kiro-cli`, the engine Crew runs on.
+## Step 2: Install it
 
-### Step 2: Run the setup wizard
+- **Windows:** double-click the `.exe`, click through the installer.
+- **Mac:** double-click the `.dmg`, drag Kiro Crew into Applications.
+- **Linux:** make the `.AppImage` executable and run it, or `dpkg -i` the `.deb` / `rpm -i` the `.rpm`.
 
-```
-kirocrew setup
-```
+## Step 3: Open it, sign in
 
-Answer its questions (workspace folder, timezone, sign-in).
+Open **Kiro Crew** from your Start Menu / Applications, like any other app.
 
-### Step 3: Get the app icon (macOS)
+First launch shows a **Set up Kiro** page. Follow it — it signs you in and finishes setup for you. No terminal needed.
 
-```
-kirocrew setup --electron-only
-```
+## Step 4: Check it worked
 
-Now open **Kiro Crew** from Applications, like any other app. No terminal needed day to day — the icon opens the dashboard in its own window.
-
-## Windows
-
-Kiro Crew on Windows runs from a Python source install (`python -m kiro_crew gateway`), not a one-click installer yet. Ask your trainer before the session if you're on Windows.
-
-## Check it worked
-
+Open a terminal just for this one check:
 ```
 kirocrew doctor
 ```
-
 Green checks across the board = ready for Module 1.
 
 ---
+
+**Prefer the terminal?** One line does everything above at once:
+```
+curl -fsSL https://download.crew.kiro.dev/cli.sh | sh
+kirocrew setup
+```
 
 Next: [Module 1 — Account & Token Management](Handson-1-Account-Token.md)
